@@ -108,18 +108,12 @@
 					//カートに商品がある場合
 					foreach($_SESSION['cart'] as $item_id => $cart) {
 						//セッションのカートからデータを取得
+						$item_name = $cart['item_name'];
+						$genre_id = $cart['genre_id'];
+						$genre_name = $cart['genre_name'];
+						$item_price = $cart['item_price'];
+						$item_img = $cart['item_img'];
 						$item_sum = $cart['item_sum'];
-						//SQLで商品情報を取得する
-						$query = "SELECT * 
-								FROM item i INNER JOIN genre g ON i.gno = g.gno 
-								WHERE i.ino = '$item_id'";
-						$result = mysqli_query($dbc, $query);
-						while($row = mysqli_fetch_array($result)) {
-							$item_name = $row['iname'];
-							$genre_id = $row['gno'];
-							$genre_name = $row['gname'];
-							$item_price = $row['iprice'];
-							$item_img = $row['iimg'];
 							//表示処理
 							echo '<form action="cart.php" method="POST">';
 								echo '<input type="hidden" name="item_id" value="' . $item_id . '">';
@@ -132,8 +126,6 @@
 								echo '<input type="submit" name="delete" value="削除" />';
 							echo '</form>';
 							echo '<br />';
-						}
-						mysqli_close($dbc);
 					}
 					echo '<form action="buy.php" method="POST">';
 						echo '<input type="submit" name="buy" value="購入手続きへ進む" />';

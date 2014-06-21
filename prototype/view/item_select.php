@@ -22,6 +22,7 @@
 			$item_word = '%' . $_POST['item_word'] . '%';
 			
 			//SQL文の格納
+			$dbc = mysqli_connect(db_host, db_user, db_pass, db_name);
 			$query = "select * from item, genre 
 					where item.gno = genre.gno and item.iname like '$item_word' 
 					order by item.iname";
@@ -55,6 +56,7 @@
 			$genre_id = $_GET['genre_id'];
 			
 			//SQL文の格納
+			$dbc = mysqli_connect(db_host, db_user, db_pass, db_name);
 			$query = "select * from item, genre 
 					where item.gno = genre.gno and item.gno = '$genre_id' 
 					order by item.iname";

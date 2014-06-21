@@ -24,7 +24,7 @@
 			$sql = "SELECT * FROM item I INNER JOIN genre G ON I.gno = G.gno
 					INNER JOIN line L ON L.ino = I.ino
 					INNER JOIN buy B ON L.ono = B.ono
-					where B.mno = $user_id;";
+					where B.mno = '$user_id' order by B.odate desc";
 			$result = mysqli_query($dbc,$sql);
 			mysqli_close($dbc);
 			// 取得したデータを一覧表示
@@ -36,9 +36,10 @@
 				//購入履歴がある場合
 				while($row = mysqli_fetch_array($result)) {
 					//SQLの結果からデータを取得
-					$item_no = $row['ino'];
+					$item_id = $row['ino'];
 					$item_name = $row['iname'];
-					$genre_no = $row['gno'];
+					$item_img = $row['iimg'];
+					$genre_id = $row['gno'];
 					$genre_name = $row['gname'];
 					$item_price = $row['lprice'];
 					$line_sum = $row['lsum'];

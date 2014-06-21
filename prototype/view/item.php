@@ -22,6 +22,11 @@
 		if(isset($_POST['item_id'])) {
 			//カートに入れるボタンが押されたとき
 			$item_id = $_POST['item_id'];
+			$item_name = $_POST['item_name'];
+			$genre_id = $_POST['genre_id'];
+			$genre_name = $_POST['genre_name'];
+			$item_price = $_POST['item_price'];
+			$item_img = $_POST['item_img'];
 			$item_sum = $_POST['item_sum'];
 			if(isset($_SESSION['user_id'])) {
 				//会員の処理
@@ -58,6 +63,11 @@
 					
 				} else {
 					//カートがなかった場合
+					$_SESSION['cart'][$item_id]['item_name'] = $item_name;
+					$_SESSION['cart'][$item_id]['genre_id'] = $genre_id;
+					$_SESSION['cart'][$item_id]['genre_name'] = $genre_name;
+					$_SESSION['cart'][$item_id]['item_price'] = $item_price;
+					$_SESSION['cart'][$item_id]['item_img'] = $item_img;
 					$_SESSION['cart'][$item_id]['item_sum'] = $item_sum;
 				}
 			}
@@ -74,12 +84,18 @@
 			$item_name = $row['iname'];
 			$item_price = $row['iprice'];
 			$item_sum = $row['isum'];
+			$genre_id = $row['gno'];
 			$genre_name = $row['gname'];
 			$item_co = $row['ico'];
 			$item_img = $row['iimg'];
 			//表示する処理
 			echo '<form action="item.php" method="POST">';
 				echo '<input type="hidden" name="item_id" value="' . $item_id . '" />';
+				echo '<input type="hidden" name="item_name" value="' . $item_name . '" />';
+				echo '<input type="hidden" name="item_price" value="' . $item_price . '" />';
+				echo '<input type="hidden" name="genre_id" value="' . $genre_id . '" />';
+				echo '<input type="hidden" name="genre_name" value="' . $genre_name . '" />';
+				echo '<input type="hidden" name="item_img" value="' . $item_img . '" />';
 				echo '<p>商品名：' . $item_name . '</p>';
 				echo '<p><img src="' . ipath . $item_img . '" alt="' . $item_name . '" /></p>';
 				echo '<p>単価：' . $item_price . '</p>';
